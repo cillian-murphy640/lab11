@@ -2,7 +2,7 @@ if [ $# == 1 ]
 
 then
 
-        echo "hi" $1
+        echo "hi $1"
 
 else
 

@@ -7,6 +7,6 @@ then
 
 else
 
-        echo "need name as param"
+        echo "4need name as param"
 
 fi

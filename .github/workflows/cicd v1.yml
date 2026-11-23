@@ -23,6 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ---------- CI: validate the webpage ----------
   ci:
     runs-on: ubuntu-latest
     steps:
@@ -37,16 +38,14 @@ jobs:
       - name: Lint HTML
         run: npx --yes htmlhint "**/*.html"
 
-      - name: Check phrase
+      - name: Check phrase appears anywhere in the HTML (case-insensitive)
         run: grep -rqi --include="*.html" "hello from cd lab" .
-        
-  deploy:
+
+  # ---------- CD: build the Pages artifact ----------
+  build:
     needs: ci
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -59,6 +58,14 @@ jobs:
         with:
           path: .
 
+  # ---------- CD: deploy to GitHub Pages ----------
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

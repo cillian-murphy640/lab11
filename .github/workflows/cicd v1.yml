@@ -38,7 +38,7 @@ jobs:
         run: npx --yes htmlhint "**/*.html"
 
       - name: Check phrase 
-        run: grep -rqi --include="*.html" "hello from cd lab" .
+        run: grep -rqi --include="*.html" "Hello from CD lab" .
         
   deploy:
     needs: ci

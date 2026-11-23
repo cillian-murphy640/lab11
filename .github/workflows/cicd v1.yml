@@ -37,8 +37,8 @@ jobs:
       - name: Lint HTML
         run: npx --yes htmlhint "**/*.html"
 
-      - name: Check phrase 
-        run: grep -rqi --include="*.html" "Hello from CD lab" .
+      - name: Check phrase
+        run: grep -rqi --include="*.html" "hello from cd lab" .
         
   deploy:
     needs: ci

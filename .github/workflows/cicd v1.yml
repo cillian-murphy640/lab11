@@ -3,8 +3,14 @@ name: CI/CD
 on:
   push:
     branches: [main]
+    paths:
+      - "**/*.html"
+      - ".github/workflows/cicd.yml"
   pull_request:
     branches: [main]
+    paths:
+      - "**/*.html"
+      - ".github/workflows/cicd.yml"
   workflow_dispatch:
 
 permissions:
@@ -29,11 +35,11 @@ jobs:
           node-version: 20
 
       - name: Lint HTML
-        run: npx --yes htmlhint index.html
+        run: npx --yes htmlhint "**/*.html"
 
       - name: Check required text is present
         run: grep -q "Hello from CD lab" index.html
-
+        
   deploy:
     needs: ci
     if: github.event_name != 'pull_request'

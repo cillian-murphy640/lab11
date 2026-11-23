@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 if [ "$#" -eq 1 ]
 
 then
